@@ -31,5 +31,6 @@ namespace fbla_app.data
         public virtual DbSet<StudentHour> StudentHours { get; set; }
         public virtual DbSet<vw_CommunityMembers> vw_CommunityMembers { get; set; }
         public virtual DbSet<vw_StudentHours> vw_StudentHours { get; set; }
+        public virtual DbSet<vw_StudentHoursTotals> vw_StudentHoursTotals { get; set; }
     }
 }

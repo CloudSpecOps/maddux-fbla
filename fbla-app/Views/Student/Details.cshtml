@@ -1,45 +1,46 @@
 ﻿@model fbla_app.data.Student
 
-<div>
-    <h4>@Html.DisplayFor(model => model.StudentName) Info</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Student Name
-        </dt>
+    <div class="container-fluid" style="padding: 15px">
+        <div>
+            <h4>@Html.DisplayFor(model => model.StudentName) Info</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Student Name
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentName)
+                </dd>
 
-        <dt>
-            Student ID
-        </dt>
+                <dt>
+                    Student ID
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentID)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentID)
+                </dd>
 
-        <dt>
-            Student Grade
-        </dt>
+                <dt>
+                    Student Grade
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Grade)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Grade)
+                </dd>
 
-        <dt>
-            Community
-        </dt>
+                <dt>
+                    Community
+                </dt>
 
-        <dd>
-            @ViewBag("CommunityName")
-        </dd>
+                <dd>
+                    @ViewBag("CommunityName")
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-

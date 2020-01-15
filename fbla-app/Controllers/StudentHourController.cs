@@ -56,7 +56,27 @@ namespace fbla_app.Controllers
                     .Where(sh => sh.PrimaryUserId == userId 
                         && sh.ServiceDate >= studentHours.StartDate
                         && sh.ServiceDate <= studentHours.EndDate)
-                    .ToList<vw_StudentHours>();
+                    .Select(sh => new StudentHoursReportViewModel
+                    {
+                        CommunityHours = sh.CommunityHours,
+                        CommunityId = sh.CommunityId,
+                        CommunityName = sh.CommunityName,
+                        Grade = sh.Grade,
+                        PrimaryUserId = sh.PrimaryUserId,
+                        ServiceDate = sh.ServiceDate,
+                        StudentCode = sh.StudentCode,
+                        StudentId = sh.StudentId,
+                        StudentName = sh.StudentName
+                    })
+                    .ToList<StudentHoursReportViewModel>();
+
+                foreach (var item in studentHours.StudentHours)
+                {
+                    item.ServiceAward = db.ServiceAwards
+                        .Where(s => s.ServiceThreshhold >= item.CommunityHours
+                        && s.ServiceThreshhold <= item.CommunityHours)
+                        .Select(s => s.ServiceAwardName).SingleOrDefault<string>();
+                }
             }
 
             return View(studentHours);
@@ -75,7 +95,25 @@ namespace fbla_app.Controllers
                 .ToList<SelectListItem>();
             return View();
         }
-               
+
+        public ActionResult CSAReport()
+        {
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            var model = db.vw_StudentHoursTotals
+                .Where(s => s.PrimaryUserId == userId)
+                .ToList<vw_StudentHoursTotals>();
+
+            foreach (var item in model)
+            {
+                item.ServiceAward = db.ServiceAwards
+                    .Where(s => item.TotalHours >= s.ServiceThreshhold)
+                    .OrderByDescending(s => s.ServiceThreshhold)
+                    .Select(s => s.ServiceAwardName)
+                    .FirstOrDefault();
+            }
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CommunityId,StudentId,ServiceDate,CommunityHours,ServiceThreshhold")] StudentHour studentHour)

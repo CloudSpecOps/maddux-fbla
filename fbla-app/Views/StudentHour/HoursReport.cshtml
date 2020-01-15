@@ -1,87 +1,107 @@
 ﻿@model fbla_app.Models.HoursReportViewModel
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Student Hours Report</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { @class = "form-control datepicker" })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Run Report" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<table class="table">
-    <tr>
-        <th>
-            Student Name
-        </th>
-        <th>
-            Community
-        </th>
-        <th>
-            Student ID
-        </th>
-        <th>
-            Service Date
-        </th>
-        <th>
-            Community Hours
-        </th>
-        <th></th>
-    </tr>
-    @if (Model != null && Model.StudentHours != null)
-    {
-        foreach (var item in Model.StudentHours)
+    <div class="container-fluid" style="padding: 15px">
+        @using (Html.BeginForm())
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CommunityName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ServiceDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CommunityHours)
-                </td>
-            </tr>
-        }
-    }
-</table>
+            @Html.AntiForgeryToken()
 
-@section Scripts {
-    <script>
-        $(function () {
-            $("#StartDate").datepicker();
-            $("#EndDate").datepicker();
-        });
-    </script>
-}
+            <div class="form-horizontal">
+                <h4>Student Hours Report</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StartDate, new { @class = "form-control datepicker" })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EndDate, new { @class = "form-control datepicker" })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Run Report" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <table class="table">
+            <tr>
+                <th>
+                    Student Name
+                </th>
+                <th>
+                    Community
+                </th>
+                <th>
+                    Student ID
+                </th>
+                <th>
+                    Service Date
+                </th>
+                <th>
+                    Community Hours
+                </th>
+                <th></th>
+            </tr>
+            @if (Model != null && Model.StudentHours != null)
+            {
+                foreach (var item in Model.StudentHours)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CommunityName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentCode)
+                        </td>
+                        <td>
+                            @item.ServiceDate.ToString("d")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CommunityHours)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        Total Hours
+                    </td>
+                    <td>
+                        @Model.StudentHours.Sum(i => i.CommunityHours)
+                    </td>
+                </tr>
+
+            }
+        </table>
+
+        @section Scripts {
+            <script>
+                $(function () {
+                    $("#StartDate").datepicker();
+                    $("#EndDate").datepicker();
+                });
+            </script>
+        }
+</div>

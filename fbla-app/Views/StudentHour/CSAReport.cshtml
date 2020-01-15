@@ -1,0 +1,46 @@
+﻿@model IEnumerable<fbla_app.data.vw_StudentHoursTotals>
+
+<div class="container-fluid" style="padding: 15px">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Service Award
+            </th>
+            <th>
+                Student Name
+            </th>
+            <th>
+                Total Hours
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceAward)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHours)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Total Hours
+            </td>
+            <td>
+                @Model.Sum(i => i.TotalHours)
+            </td>
+        </tr>
+    </table>
+</div>

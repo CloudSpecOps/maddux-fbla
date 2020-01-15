@@ -1,20 +1,22 @@
 ﻿@model fbla_app.data.Community
 
-<div>
-    <h4>Community</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Community Name
-        </dt>
+<div class="container-fluid" style="padding: 15px">
+    <div>
+        <h4>Community</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Community Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CommunityName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.CommunityName)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

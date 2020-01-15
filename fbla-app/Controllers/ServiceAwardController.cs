@@ -38,6 +38,16 @@ namespace fbla_app.Controllers
         // GET: ServiceAward/Create
         public ActionResult Create()
         {
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+
             return View();
         }
 
@@ -55,6 +65,16 @@ namespace fbla_app.Controllers
                 return RedirectToAction("Index");
             }
 
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+
             return View(serviceAward);
         }
 
@@ -70,6 +90,15 @@ namespace fbla_app.Controllers
             {
                 return HttpNotFound();
             }
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
             return View(serviceAward);
         }
 
@@ -86,6 +115,15 @@ namespace fbla_app.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
             return View(serviceAward);
         }
 

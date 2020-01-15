@@ -1,13 +1,6 @@
 ﻿@model fbla_app.data.StudentHour
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
+<div class="container-fluid" style="padding: 15px">
     <div>
         <h4>StudentHour</h4>
         <hr />
@@ -15,32 +8,31 @@
             <dt>
                 @Html.DisplayNameFor(model => model.StudentId)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.StudentId)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.ServiceDate)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.ServiceDate)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.CommunityHours)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.CommunityHours)
             </dd>
-    
+
         </dl>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
-</body>
-</html>
+</div>

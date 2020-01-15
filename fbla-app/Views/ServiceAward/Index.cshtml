@@ -6,9 +6,6 @@
 <table class="table">
     <tr>
         <th>
-            Community Name
-        </th>
-        <th>
             Service Award Name
         </th>
         <th>
@@ -20,9 +17,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommunityId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceAwardName)
             </td>

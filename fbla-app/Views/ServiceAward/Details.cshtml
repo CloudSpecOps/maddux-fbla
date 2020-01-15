@@ -1,46 +1,30 @@
 ﻿@model fbla_app.data.ServiceAward
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
+<div class="container-fluid" style="padding: 15px">
     <div>
         <h4>ServiceAward</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.CommunityId)
+                Service Award Name
             </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CommunityId)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ServiceAwardName)
-            </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.ServiceAwardName)
             </dd>
-    
+
             <dt>
-                @Html.DisplayNameFor(model => model.ServiceThreshhold)
+                Service Threshold
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.ServiceThreshhold)
             </dd>
-    
+
         </dl>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
-</body>
-</html>
+</div>

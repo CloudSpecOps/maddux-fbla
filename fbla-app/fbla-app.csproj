@@ -210,6 +210,9 @@
     <Compile Include="data\vw_StudentHours.cs">
       <DependentUpon>fbla-context.tt</DependentUpon>
     </Compile>
+    <Compile Include="data\vw_StudentHoursTotals.cs">
+      <DependentUpon>fbla-context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +221,7 @@
     <Compile Include="Models\HoursReporttViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\StudentHoursReportViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -321,6 +325,7 @@
     <Content Include="Views\ServiceAward\Edit.cshtml" />
     <Content Include="Views\ServiceAward\Index.cshtml" />
     <Content Include="Views\StudentHour\HoursReport.cshtml" />
+    <Content Include="Views\StudentHour\CSAReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

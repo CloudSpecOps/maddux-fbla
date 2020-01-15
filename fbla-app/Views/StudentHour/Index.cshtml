@@ -1,52 +1,54 @@
 ﻿@model IEnumerable<fbla_app.data.vw_StudentHours>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Student Name
-        </th>
-        <th>
-            Community
-        </th>
-        <th>
-            Student ID
-        </th>
-        <th>
-            Service Date
-        </th>
-        <th>
-            Community Hours
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="container-fluid" style="padding: 15px">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommunityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommunityHours)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.StudentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
-            </td>
+            <th>
+                Student Name
+            </th>
+            <th>
+                Community
+            </th>
+            <th>
+                Student ID
+            </th>
+            <th>
+                Service Date
+            </th>
+            <th>
+                Community Hours
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommunityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentCode)
+                </td>
+                <td>
+                    @item.ServiceDate.ToString("d")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommunityHours)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.StudentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

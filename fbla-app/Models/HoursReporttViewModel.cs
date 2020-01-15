@@ -10,6 +10,6 @@ namespace fbla_app.Models
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public IList<vw_StudentHours> StudentHours { get; set; }
+        public IList<StudentHoursReportViewModel> StudentHours { get; set; }
     }
 }
