@@ -51,12 +51,16 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_CommunityMembers' does not 
             <PropertyRef Name="StudentId" />
             <PropertyRef Name="StudentName" />
             <PropertyRef Name="PrimaryUserId" />
+            <PropertyRef Name="StudentCode" />
+            <PropertyRef Name="Grade" />
           </Key>
           <Property Name="CommunityId" Type="int" Nullable="false" />
           <Property Name="CommunityName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="StudentName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="PrimaryUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StudentCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Grade" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -110,7 +114,9 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
     [vw_CommunityMembers].[CommunityName] AS [CommunityName], 
     [vw_CommunityMembers].[StudentId] AS [StudentId], 
     [vw_CommunityMembers].[StudentName] AS [StudentName], 
-    [vw_CommunityMembers].[PrimaryUserId] AS [PrimaryUserId]
+    [vw_CommunityMembers].[PrimaryUserId] AS [PrimaryUserId], 
+    [vw_CommunityMembers].[StudentCode] AS [StudentCode], 
+    [vw_CommunityMembers].[Grade] AS [Grade]
     FROM [dbo].[vw_CommunityMembers] AS [vw_CommunityMembers]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_StudentHours" EntityType="Self.vw_StudentHours" store:Type="Views" store:Schema="dbo">
@@ -173,9 +179,9 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
           <EntitySet Name="ServiceAwards" EntityType="Self.ServiceAward" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="StudentHours" EntityType="fblaModel.StudentHour" />
-          <EntitySet Name="vw_CommunityMembers" EntityType="fblaModel.vw_CommunityMembers" />
           <EntitySet Name="vw_StudentHours" EntityType="fblaModel.vw_StudentHours" />
           <EntitySet Name="vw_StudentHoursTotals" EntityType="fblaModel.vw_StudentHoursTotals" />
+          <EntitySet Name="vw_CommunityMembers" EntityType="fblaModel.vw_CommunityMembers" />
         </EntityContainer>
         <EntityType Name="StudentHour">
           <Key>
@@ -186,20 +192,6 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
           <Property Name="CommunityId" Type="Int32" Nullable="false" />
           <Property Name="ServiceDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="CommunityHours" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-        </EntityType>
-        <EntityType Name="vw_CommunityMembers">
-          <Key>
-            <PropertyRef Name="CommunityId" />
-            <PropertyRef Name="CommunityName" />
-            <PropertyRef Name="StudentId" />
-            <PropertyRef Name="StudentName" />
-            <PropertyRef Name="PrimaryUserId" />
-          </Key>
-          <Property Name="CommunityId" Type="Int32" Nullable="false" />
-          <Property Name="CommunityName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="PrimaryUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vw_StudentHours">
           <Key>
@@ -237,6 +229,24 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
           <Property Name="CommunityName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PrimaryUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ServiceAward" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_CommunityMembers">
+          <Key>
+            <PropertyRef Name="CommunityId" />
+            <PropertyRef Name="CommunityName" />
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="PrimaryUserId" />
+            <PropertyRef Name="StudentCode" />
+            <PropertyRef Name="Grade" />
+          </Key>
+          <Property Name="CommunityId" Type="Int32" Nullable="false" />
+          <Property Name="CommunityName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StudentCode" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Grade" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -285,17 +295,6 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vw_CommunityMembers">
-            <EntityTypeMapping TypeName="fblaModel.vw_CommunityMembers">
-              <MappingFragment StoreEntitySet="vw_CommunityMembers">
-                <ScalarProperty Name="PrimaryUserId" ColumnName="PrimaryUserId" />
-                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="CommunityName" ColumnName="CommunityName" />
-                <ScalarProperty Name="CommunityId" ColumnName="CommunityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_StudentHours">
             <EntityTypeMapping TypeName="fblaModel.vw_StudentHours">
               <MappingFragment StoreEntitySet="vw_StudentHours">
@@ -320,6 +319,19 @@ warning 6002: The table/view 'fbla-db-prod-01.dbo.vw_StudentHoursTotals' does no
                 <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
                 <ScalarProperty Name="StudentName" ColumnName="StudentName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_CommunityMembers">
+            <EntityTypeMapping TypeName="fblaModel.vw_CommunityMembers">
+              <MappingFragment StoreEntitySet="vw_CommunityMembers">
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="StudentCode" ColumnName="StudentCode" />
+                <ScalarProperty Name="PrimaryUserId" ColumnName="PrimaryUserId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="CommunityName" ColumnName="CommunityName" />
+                <ScalarProperty Name="CommunityId" ColumnName="CommunityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,8 +16,25 @@ namespace fbla_app.Controllers
 
         public ActionResult Index()
         {
-            var view = db.Students.ToList();
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            var view = db.vw_CommunityMembers
+                .Where(c => c.PrimaryUserId == userId)
+                .ToList<vw_CommunityMembers>();
             return View(view);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student students = db.Students.Find(id);
+            if (students == null)
+            {
+                return HttpNotFound();
+            }
+            return View(students);
         }
 
         public ActionResult Create()

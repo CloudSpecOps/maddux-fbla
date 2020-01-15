@@ -19,5 +19,7 @@ namespace fbla_app.data
         public int StudentId { get; set; }
         public string StudentName { get; set; }
         public string PrimaryUserId { get; set; }
+        public string StudentCode { get; set; }
+        public int Grade { get; set; }
     }
 }

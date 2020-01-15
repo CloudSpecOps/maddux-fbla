@@ -17,7 +17,11 @@ namespace fbla_app.Controllers
         // GET: Community
         public ActionResult Index()
         {
-            return View(db.Communities.ToList());
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            var model = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .ToList<Community>();
+            return View(model);
         }
 
         // GET: Community/Details/5

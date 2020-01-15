@@ -1,86 +1,94 @@
 ﻿@model fbla_app.data.StudentHour
 
-    <div class="container-fluid" style="padding: 15px">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+<div class="container-fluid" style="padding: 15px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <h4>Submit Student Hours</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CommunityId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.CommunityId,
-                              new SelectList(ViewBag.Communities, "Value", "Text"),
-                              "Select Community",
-                              new { @class = "form-control", @onchange = "FillStudents()" })
-                        @Html.ValidationMessageFor(model => model.CommunityId, "", new { @class = "text-danger" })
-                    </div>
+        <div class="form-horizontal">
+            <h4>Submit Student Hours</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Community Name
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.StudentId, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.StudentId,
-                        new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"),
-                               "Select Student",
-                               new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ServiceDate, new { @class = "form-control datepicker" })
-                        @Html.ValidationMessageFor(model => model.ServiceDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CommunityHours, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CommunityHours, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CommunityHours, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CommunityId,
+                          new SelectList(ViewBag.Communities, "Value", "Text"),
+                          "Select Community",
+                          new { @class = "form-control", @onchange = "FillStudents()" })
+                    @Html.ValidationMessageFor(model => model.CommunityId, "", new { @class = "text-danger" })
                 </div>
             </div>
-        }
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Student Name
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.StudentId,
+                    new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"),
+                           "Select Student",
+                           new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Service Date
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ServiceDate, new { @class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.ServiceDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Community Hours
+                </div>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CommunityHours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CommunityHours, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
         </div>
+    }
 
-        @section Scripts {
-            <script>
-                function FillStudents() {
-                    var communityId = $('#CommunityId').val();
-                    $.ajax({
-                        url: '/StudentHour/FillStudents',
-                        type: "GET",
-                        dataType: "JSON",
-                        data: { CommunityId: communityId },
-                        success: function (students) {
-                            $("#StudentId").html(""); // clear before appending new list
-                            $.each(students, function (i, students) {
-                                $("#StudentId").append(
-                                    $('<option></option>').val(students.Value).html(students.Text));
-                            });
-                        }
-                    });
-                }
-
-                $(function () {
-                    $("#ServiceDate").datepicker();
-                });
-            </script>
-        }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
+
+    @section Scripts {
+        <script>
+            function FillStudents() {
+                var communityId = $('#CommunityId').val();
+                $.ajax({
+                    url: '/StudentHour/FillStudents',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { CommunityId: communityId },
+                    success: function (students) {
+                        $("#StudentId").html(""); // clear before appending new list
+                        $.each(students, function (i, students) {
+                            $("#StudentId").append(
+                                $('<option></option>').val(students.Value).html(students.Text));
+                        });
+                    }
+                });
+            }
+
+            $(function () {
+                $("#ServiceDate").datepicker();
+            });
+        </script>
+    }
+</div>

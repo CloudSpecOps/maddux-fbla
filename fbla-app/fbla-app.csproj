@@ -259,6 +259,7 @@
     <Content Include="data\fbla-context.edmx.diagram">
       <DependentUpon>fbla-context.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\fbla-app - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

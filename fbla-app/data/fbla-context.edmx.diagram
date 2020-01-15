@@ -9,9 +9,9 @@
         <EntityTypeShape EntityType="fblaModel.ServiceAward" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fblaModel.Student" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fblaModel.StudentHour" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="fblaModel.vw_CommunityMembers" Width="1.5" PointX="5.75" PointY="3.75" />
         <EntityTypeShape EntityType="fblaModel.vw_StudentHours" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="fblaModel.vw_StudentHoursTotals" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="fblaModel.vw_CommunityMembers" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
