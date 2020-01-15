@@ -21,7 +21,6 @@
                             <strong>@Html.DisplayFor(modelItem => item.CommunityName)</strong>
                         </div>
                         <div class="col-md-6">
-                            @Html.ActionLink("Detail", "Detail", "Community", new { id = item.Id }, null) |
                             @Html.ActionLink("Edit", "Edit", "Community", new { id = item.Id }, null) |
                             @Html.ActionLink("Delete", "Delete", "Community", new { id = item.Id }, null)
                         </div>
