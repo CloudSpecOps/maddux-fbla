@@ -1,34 +1,39 @@
-﻿@model IEnumerable<fbla_app.data.StudentHour>
+﻿@model IEnumerable<fbla_app.data.vw_StudentHours>
 
-<!DOCTYPE html>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Community
+        </th>
+        <th>
+            Student ID
+        </th>
+        <th>
+            Service Date
+        </th>
+        <th>
+            Community Hours
+        </th>
+        <th></th>
+    </tr>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CommunityHours)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StudentId)
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommunityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentCode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceDate)
@@ -37,13 +42,11 @@
                 @Html.DisplayFor(modelItem => item.CommunityHours)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StudentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+
+</table>

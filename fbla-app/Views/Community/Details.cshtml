@@ -1,38 +1,20 @@
 ﻿@model fbla_app.data.Community
 
-<!DOCTYPE html>
+<div>
+    <h4>Community</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Community Name
+        </dt>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>Community</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.CommunityName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CommunityName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.PrimaryUserId)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.PrimaryUserId)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+        <dd>
+            @Html.DisplayFor(model => model.CommunityName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

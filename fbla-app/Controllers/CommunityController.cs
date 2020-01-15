@@ -46,10 +46,11 @@ namespace fbla_app.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CommunityName,PrimaryUserId")] Community community)
+        public ActionResult Create([Bind(Include = "CommunityName")] Community community)
         {
             if (ModelState.IsValid)
             {
+                community.PrimaryUserId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
                 db.Communities.Add(community);
                 db.SaveChanges();
                 return RedirectToAction("Index");

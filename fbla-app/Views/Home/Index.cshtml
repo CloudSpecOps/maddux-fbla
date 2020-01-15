@@ -1,41 +1,88 @@
 ﻿@model fbla_app.Models.HomeViewModel
 
-<div class="container-fluid">
+<div class="container-fluid" style="padding: 15px">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-12" style="padding-top: 10px">
-                        @Html.ActionLink("Create New Community", "Create", "Community")
+                    <div class="col-md-12">
+                        <p>@Html.ActionLink("Create New Community", "Create", "Community")</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <h2>Community(s)</h2>
-                    </div>
-                    <div class="col-md-6">
-                        &nbsp;
+                    <div class="col-md-12">
+                        <h3>My Community(s)</h3>
                     </div>
                 </div>
                 @foreach (var item in Model.Communities)
                 {
-                    <div class="row">
+                    <div class="row my-row">
                         <div class="col-md-6">
                             <strong>@Html.DisplayFor(modelItem => item.CommunityName)</strong>
                         </div>
                         <div class="col-md-6">
+                            @Html.ActionLink("Detail", "Detail", "Community", new { id = item.Id }, null) |
                             @Html.ActionLink("Edit", "Edit", "Community", new { id = item.Id }, null) |
-                            @Html.ActionLink("Details", "Details", "Community",  new { id = item.Id }, null) |
-                            @Html.ActionLink("Delete", "Delete", "Community",  new { id = item.Id }, null)
+                            @Html.ActionLink("Delete", "Delete", "Community", new { id = item.Id }, null)
                         </div>
                     </div>
                 }
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            @Html.ActionLink("Manage Student(s)", "Index", "Student") |
+                            @Html.ActionLink("Enter Student Hours", "Index", "StudentHour") |
+                            @Html.ActionLink("Student Hours Report", "HoursReport", "StudentHour")
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Recent Hours Entered</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Student Name
+                                </th>
+                                <th>
+                                    Community
+                                </th>
+                                <th>
+                                    Service Date
+                                </th>
+                                <th>
+                                    Community Hours
+                                </th>
+                                <th></th>
+                            </tr>
 
-            </div>
-            <div class="col-md-4">
+                            @foreach (var item in Model.RecentStudentHours)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CommunityName)
+                                    </td>
+                                    <td>
+                                        @item.ServiceDate.ToString("d")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CommunityHours)
+                                    </td>
+                                </tr>
+                            }
 
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

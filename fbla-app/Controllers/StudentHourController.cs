@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using fbla_app.data;
+using fbla_app.Models;
 
 namespace fbla_app.Controllers
 {
@@ -17,7 +18,11 @@ namespace fbla_app.Controllers
         // GET: StudentHour
         public ActionResult Index()
         {
-            return View(db.StudentHours.ToList());
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            var model = db.vw_StudentHours
+                .Where(sh => sh.PrimaryUserId == userId)
+                .ToList<vw_StudentHours>();
+            return View(model);
         }
 
         // GET: StudentHour/Details/5
@@ -35,18 +40,45 @@ namespace fbla_app.Controllers
             return View(studentHour);
         }
 
-        // GET: StudentHour/Create
-        public ActionResult Create()
+        public ActionResult HoursReport()
         {
             return View();
         }
 
-        // POST: StudentHour/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StudentId,ServiceDate,CommunityHours,ServiceThreshhold")] StudentHour studentHour)
+        public ActionResult HoursReport([Bind(Include = "StartDate,EndDate")] HoursReportViewModel studentHours)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+                studentHours.StudentHours = db.vw_StudentHours
+                    .Where(sh => sh.PrimaryUserId == userId 
+                        && sh.ServiceDate >= studentHours.StartDate
+                        && sh.ServiceDate <= studentHours.EndDate)
+                    .ToList<vw_StudentHours>();
+            }
+
+            return View(studentHours);
+        }
+
+        public ActionResult Create()
+        {
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+            return View();
+        }
+               
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "CommunityId,StudentId,ServiceDate,CommunityHours,ServiceThreshhold")] StudentHour studentHour)
         {
             if (ModelState.IsValid)
             {
@@ -54,6 +86,16 @@ namespace fbla_app.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
 
             return View(studentHour);
         }
@@ -70,6 +112,17 @@ namespace fbla_app.Controllers
             {
                 return HttpNotFound();
             }
+
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+
             return View(studentHour);
         }
 
@@ -86,7 +139,30 @@ namespace fbla_app.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+
             return View(studentHour);
+        }
+
+        public ActionResult FillStudents(int CommunityId)
+        {
+            var students = db.Students
+                .Where(c => c.CommunityId == CommunityId)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.StudentName
+                }).ToList<SelectListItem>();
+            return Json(students, JsonRequestBehavior.AllowGet);
         }
 
         // GET: StudentHour/Delete/5

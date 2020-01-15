@@ -14,51 +14,53 @@ namespace fbla_app.Controllers
     {
         private fblaEntities db = new fblaEntities();
 
-        // GET: Student
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            var view = db.Students.ToList();
+            return View(view);
         }
 
-        // GET: Student/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        // GET: Student/Create
         public ActionResult Create()
         {
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
+
             return View();
         }
 
-        // POST: Student/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StudentName,StudentID,Grade,CommunityId")] Student student)
+        public ActionResult Create([Bind(Include = "StudentName,StudentID,Grade,CommunityId")] Student student)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!string.IsNullOrEmpty(student.StudentName) && !string.IsNullOrEmpty(student.StudentName))
+                {
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
 
             return View(student);
         }
 
-        // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -66,6 +68,15 @@ namespace fbla_app.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
             if (student == null)
             {
                 return HttpNotFound();
@@ -86,6 +97,15 @@ namespace fbla_app.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            ViewBag.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Text = c.CommunityName,
+                    Value = c.Id.ToString()
+                })
+                .ToList<SelectListItem>();
             return View(student);
         }
 

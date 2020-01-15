@@ -14,9 +14,17 @@ namespace fbla_app.Controllers
 
         public ActionResult Index()
         {
-            HomeViewModel view = new HomeViewModel();
-            view.Communities = db.Communities.ToList();
-            return View(view);
+            HomeViewModel model = new HomeViewModel();
+            var userId = Microsoft.AspNet.Identity.IdentityExtensions.GetUserId(User.Identity);
+            model.Communities = db.Communities
+                .Where(c => c.PrimaryUserId == userId)
+                .ToList<Community>();
+            model.RecentStudentHours = db.vw_StudentHours
+                .Where(sh => sh.PrimaryUserId == userId)                
+                .OrderByDescending(sh => sh.ServiceDate)
+                .Take(10)
+                .ToList<vw_StudentHours>();
+            return View(model);
         }
     }
 }

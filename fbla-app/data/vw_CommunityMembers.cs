@@ -12,12 +12,12 @@ namespace fbla_app.data
     using System;
     using System.Collections.Generic;
     
-    public partial class StudentHour
+    public partial class vw_CommunityMembers
     {
-        public int Id { get; set; }
-        public int StudentId { get; set; }
         public int CommunityId { get; set; }
-        public System.DateTime ServiceDate { get; set; }
-        public decimal CommunityHours { get; set; }
+        public string CommunityName { get; set; }
+        public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public string PrimaryUserId { get; set; }
     }
 }
